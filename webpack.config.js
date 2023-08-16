@@ -1,7 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-​
+
 module.exports = {
+  performance: {
+    maxAssetSize: 5000000,
+    maxEntrypointSize: 5000000,
+  },
   entry: './client/index.js',
   output: {
     filename: 'bundle.js',
@@ -26,7 +30,7 @@ module.exports = {
       },
     ],
   },
-​
+
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Development',
@@ -43,5 +47,3 @@ module.exports = {
     },
   },
 };
-​
-
