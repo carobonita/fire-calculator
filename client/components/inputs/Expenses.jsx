@@ -5,7 +5,13 @@ export const Expenses = ({onChange, value}) => {
     <div className="frame">
       <label name="expenses">
         Annual Retirement Expenses
-        <input id="expenses" type="number" onChange={(e) => onChange(parseInt(e.target.value))} value={value} />
+        <input
+          id="expenses"
+          type="number"
+          onChange={(e) => onChange(parseInt(e.target.value))}
+          placeholder='0'
+          value={value === 0 ? undefined : value}
+        />
       </label>
     </div>
   );

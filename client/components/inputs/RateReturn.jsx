@@ -10,7 +10,12 @@ export const RateReturn = ({onChange, value}) => {
     <div className="frame">
       <label name="returns">
         Rate of Return
-        <input id="returns" type="number" onChange={(e) => onChange(parseInt(e.target.value))} value={value} />
+        <input
+          id="returns"
+          type="number"
+          onChange={(e) => onChange(parseInt(e.target.value))}
+          value={value}
+        />
       </label>      
     </div>
   );
