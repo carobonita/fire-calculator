@@ -5,8 +5,47 @@ import { Savings } from './components/inputs/Savings.jsx';
 import { FrequencyContributions } from './components/inputs/FrequencyContributions.jsx';
 import { RateReturn } from './components/inputs/RateReturn.jsx';
 import { AmountContribution } from './components/inputs/AmountContribution.jsx';
-import { set } from 'mongoose';
-import style from 'styled-components'
+import styled from 'styled-components'
+
+const theme = {
+  teal: {
+    default:  '#4db6ac',
+    hover: '#80cbc4',
+  },
+  red: {
+    default: '#f44336',
+    hover: '#ef5350',
+  },
+  grey: {
+    default: '#9e9e9e',
+    hover: '#bdbdbd',
+  }
+};
+
+const Container = styled.div`
+  background-color: #ACCEEC;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+`;
+
+const Button = styled.button`
+  background-color: ${props => theme[props.theme].default};
+  color: #1a237e;
+  padding: 1px 15px;
+  boder-radius: 5px;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0px 2px 2px lightgray;
+  &:hover {
+    background-color: ${props => theme[props.theme].hover};
+`;
+
+const Headline = styled.h1`
+  margin: 0 auto;
+  padding-bottom: 20px;
+`;
 
 const App = () => {
   const [username, setUsername] = useState();
@@ -52,15 +91,12 @@ const App = () => {
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
+      alert('Your information has been deleted and you will be redirected to the login page.')
+      setUsername('');
+      setDidLogin(false);
     })
   }
-  
-  const showAlert = () => {
-    alert('Your information will be deleted next time you login. \n not now, I don not know how to do that, YET!')
-  }
-  
-  
-  
+    
   const handleSave = () => {
     setIsSaving(true);
     const data = {
@@ -107,13 +143,9 @@ const App = () => {
     setCalculatedYears(years);
   }, [expenses, savings, frequency, amount, rateReturn])
 
-  // const Button = style.button`
-  //   background-color: #4CAF50;
-  // `
-  
   return (
-    <div>
-      <h1>F.I.R.E Calculator</h1>
+    <Container>
+      <Headline>F.I.R.E Calculator</Headline>
       {didLogin ?
         <div>
           <form>
@@ -129,17 +161,18 @@ const App = () => {
             <h2>Results</h2>
             <p>Target Amount to FIRE: {formatter.format(expenses * 25)}</p>
             <p>Years to FIRE: {calculatedYears}</p>
-            <button disabled={isSaving} onClick={handleSave}>Save Data</button>
-            <button onClick={handleDelete}>Delete Info</button>
+            <Button disabled={isSaving} onClick={handleSave} theme="teal">Save Data</Button>
+            <Button onClick={handleDelete} theme="red">Delete My Account</Button>
           </div>
         </div>
       :
       <div>
         <Username onChange={setUsername} value={username} />
-        <button disabled={!username} onClick={handleLogin}>Next</button>
+        <Button disabled={!username} onClick={handleLogin} theme="grey">Next</Button>
       </div>
       } 
-      </div>
+    </Container>
+    
   );
 }
 
